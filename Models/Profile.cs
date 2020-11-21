@@ -19,5 +19,7 @@ namespace Reaction.Models
 
         [Required]
         public bool Visibility { get; set; }
+
+        public virtual ICollection<Post> Posts { get; set; }
     }
 }

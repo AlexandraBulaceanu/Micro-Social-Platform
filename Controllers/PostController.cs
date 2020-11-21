@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Reaction.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,25 +11,25 @@ namespace Reaction.Controllers
     {
         private Reaction.Models.AppContext db = new Reaction.Models.AppContext();
 
-        // GET: Category
+        // GET: Post
         public ActionResult Index()
         {
-            if (TempData.ContainsKey("message"))
+            /*if (TempData.ContainsKey("message"))
             {
                 ViewBag.message = TempData["message"].ToString();
-            }
+            }*/
 
-            var categories = from category in db.Categories
-                             orderby category.CategoryName
-                             select category;
-            ViewBag.Categories = categories;
+            ViewBag.Posts = from post in db.Posts
+                             orderby post.Date
+                             select post;
+            
             return View();
         }
 
         public ActionResult Show(int id)
         {
-            Category category = db.Categories.Find(id);
-            return View(category);
+            Post post = db.Posts.Find(id);
+            return View(post);
         }
 
         public ActionResult New()
@@ -37,65 +38,65 @@ namespace Reaction.Controllers
         }
 
         [HttpPost]
-        public ActionResult New(Category cat)
+        public ActionResult New(Post post)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    db.Categories.Add(cat);
+                    db.Posts.Add(post);
                     db.SaveChanges();
-                    TempData["message"] = "Categoria a fost adaugata!";
+                    TempData["message"] = "The post has been added!";
                     return RedirectToAction("Index");
                 }
                 else
                 {
-                    return View(cat);
+                    return View(post);
                 }
             }
             catch (Exception e)
             {
-                return View(cat);
+                return View(post);
             }
         }
 
         public ActionResult Edit(int id)
         {
-            Category category = db.Categories.Find(id);
-            return View(category);
+            Post post = db.Posts.Find(id);
+            return View(post);
         }
 
         [HttpPut]
-        public ActionResult Edit(int id, Category requestCategory)
+        public ActionResult Edit(int id, Post requestPost)
         {
             try
             {
-                Category category = db.Categories.Find(id);
+                Post post = db.Posts.Find(id);
 
                 //throw new Exception();
 
-                if (TryUpdateModel(category))
+                if (TryUpdateModel(post))
                 {
-                    category.CategoryName = requestCategory.CategoryName;
+                    post.Content = requestPost.Content;
                     db.SaveChanges();
-                    TempData["message"] = "Categoria a fost modificata!";
+                    TempData["message"] = "The post was modified!";
                     return RedirectToAction("Index");
                 }
 
-                return View(requestCategory);
+                return View(requestPost);
             }
             catch (Exception e)
             {
-                return View(requestCategory);
+                return View(requestPost);
             }
         }
 
         [HttpDelete]
         public ActionResult Delete(int id)
         {
-            Category category = db.Categories.Find(id);
-            db.Categories.Remove(category);
-            TempData["message"] = "Categoria a fost stearsa!";
+            Post post = db.Posts.Find(id);
+            db.Posts.Remove(post);
+            TempData["message"] = "The post was deleted!";
             db.SaveChanges();
             return RedirectToAction("Index");
         }
