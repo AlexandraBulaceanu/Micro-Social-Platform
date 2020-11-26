@@ -24,8 +24,10 @@ namespace Reaction.Models
         public int Username { get; set; }
 
         [Required]
-        public Visible Visibility { get; set; }
+        public bool Visibility { get; set; }
 
         public virtual ICollection<Post> Posts { get; set; }
+
+       // public IEnumerable<SelectListItem> Visible { get; set; }
     }
 }

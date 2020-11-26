@@ -19,8 +19,6 @@ namespace Reaction.Models
 
         public DateTime Date { get; set; }
 
-        //public string Username { get; set; }
-
         public int PostId { get; set; }
 
         public virtual Post Post { get; set; }
