@@ -8,6 +8,12 @@ namespace Reaction.Models
 {
     public class Profile
     {
+        public enum Visible
+        {
+            Public,
+            Private
+        }
+
         [Key]
         public int ProfileId { get; set; }
 
@@ -18,7 +24,7 @@ namespace Reaction.Models
         public int Username { get; set; }
 
         [Required]
-        public bool Visibility { get; set; }
+        public Visible Visibility { get; set; }
 
         public virtual ICollection<Post> Posts { get; set; }
     }

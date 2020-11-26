@@ -7,11 +7,11 @@ using System.Web.Mvc;
 
 namespace Reaction.Controllers
 {
-    public class CommentsController : Controller
+    public class ProfilesController : Controller
     {
         private Reaction.Models.AppContext db = new Reaction.Models.AppContext();
 
-        // GET: Comments
+        // GET: Profiles
         public ActionResult Index()
         {
             return View();
@@ -20,49 +20,50 @@ namespace Reaction.Controllers
         [HttpDelete]
         public ActionResult Delete(int id)
         {
-            Comment comm = db.Comments.Find(id);
-            db.Comments.Remove(comm);
+            Profile profile = db.Profiles.Find(id);
+            db.Profiles.Remove(profile);
             db.SaveChanges();
-            return Redirect("/Posts/Show/" + comm.PostId);
+            return Redirect("/Home/Index");
         }
 
         [HttpPost]
-        public ActionResult New(Comment comm)
+        public ActionResult New(Profile profile)
         {
-            comm.Date = DateTime.Now;
             try
             {
-                db.Comments.Add(comm);
+                db.Profiles.Add(profile);
                 db.SaveChanges();
-                return Redirect("/Posts/Show/" + comm.PostId);
+                return Redirect("/Profile/Show/" + profile.ProfileId);
             }
 
             catch (Exception e)
             {
-                return Redirect("/Posts/Show/" + comm.PostId);
+                return Redirect("/Home/Index");
             }
 
         }
 
         public ActionResult Edit(int id)
         {
-            Comment comm = db.Comments.Find(id);
-            ViewBag.Comment = comm;
+            Profile profile = db.Profiles.Find(id);
+            ViewBag.Profile = profile;
             return View();
         }
 
         [HttpPut]
-        public ActionResult Edit(int id, Comment requestComment)
+        public ActionResult Edit(int id, Profile requestProfile)
         {
             try
             {
-                Comment comm = db.Comments.Find(id);
-                if (TryUpdateModel(comm))
+                Profile profile = db.Profiles.Find(id);
+                if (TryUpdateModel(profile))
                 {
-                    comm.Content = requestComment.Content;
+                    profile.Description = requestProfile.Description;
+                    profile.Username = requestProfile.Username;
+                    profile.Visibility = requestProfile.Visibility;
                     db.SaveChanges();
                 }
-                return Redirect("/Posts/Show/" + comm.PostId);
+                return Redirect("/Profile/Show/" + profile.ProfileId);
             }
             catch (Exception e)
             {

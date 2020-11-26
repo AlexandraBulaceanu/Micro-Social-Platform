@@ -1,0 +1,18 @@
+﻿@model Reaction.Models.Post
+
+<h2>Add post</h2>
+
+@using (Html.BeginForm(actionName: "New", controllerName: "Post"))
+{
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+    @Html.Label("Content", "Post text")
+    <br />
+    @Html.TextArea("Content", null, new { @class = "form-control" })
+    @Html.ValidationMessage("Content", null, new { @class = "text-danger" })
+    <br />
+    <br />
+
+    <button class="btn btn-sm btn-success" type="submit">Share post</button>
+
+}

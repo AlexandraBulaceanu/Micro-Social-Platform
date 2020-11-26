@@ -1,0 +1,23 @@
+﻿@model Reaction.Models.Profile
+
+<h2>Add profile</h2>
+
+@using (Html.BeginForm(actionName: "New", controllerName: "Profile"))
+{
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+    @Html.Label("Username", "Username")
+    <br />
+    @Html.TextArea("Username", null, new { @class = "form-control" })
+    @Html.ValidationMessage("Username", null, new { @class = "text-danger" })
+    <br />
+    @Html.Label("Description","Description")
+    <br />
+    @Html.TextArea("Description", null, new { @class = "form-control" })
+    @Html.ValidationMessage("Description", null, new { @class = "text-danger" })
+    <br />
+    <br />
+
+    <button class="btn btn-sm btn-success" type="submit">Share post</button>
+
+}

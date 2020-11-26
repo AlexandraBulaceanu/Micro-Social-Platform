@@ -1,0 +1,42 @@
+﻿@{
+    Layout = null;
+    ViewBag.Message = "Here will be one post with comments";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+        <h1>@ViewBag.Message</h1>
+        <h2>These are my posts</h2>
+
+        <a class="btn btn-primary" href="#">Show comments</a>
+        <a class="btn btn-primary" href="/Posts/New">New post</a>
+        <br />
+
+        <div class="panel panel-default">
+            <div class="panel-footer">
+                <a class="btn btn-success" href="#">Afisare articol</a>
+            </div>
+        </div>
+
+        @foreach (Reaction.Models.Post post in ViewBag.Posts)
+        {
+            <div class="panel panel-default">
+                @Html.Partial("PostInfo", post)
+                <div class="panel-footer">
+                    <a class="btn btn-success" href="#">Afisare articol</a>
+                </div>
+            </div>
+        }
+
+    </div>
+</body>
+</html>
+
+
