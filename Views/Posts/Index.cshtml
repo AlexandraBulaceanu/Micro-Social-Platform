@@ -1,7 +1,24 @@
-﻿@{
+﻿@model Reaction.Models.Post
+
+@{
     Layout = null;
     ViewBag.Message = "Here will be one post with comments";
 }
+
+
+@if (TempData.ContainsKey("NewPost"))
+{
+    <h1>@ViewBag.newPost</h1>
+}
+@if (TempData.ContainsKey("EditPost"))
+{
+    <h1>@ViewBag.editPost</h1>
+}
+@if (TempData.ContainsKey("DeletePost"))
+{
+    <h1>@ViewBag.deletePost</h1>
+}
+
 
 <!DOCTYPE html>
 
@@ -12,26 +29,16 @@
 </head>
 <body>
     <div>
-        <h1>@ViewBag.Message</h1>
         <h2>These are my posts</h2>
 
-        <a class="btn btn-primary" href="#">Show comments</a>
         <a class="btn btn-primary" href="/Posts/New">New post</a>
         <br />
 
-        <div class="panel panel-default">
-            <div class="panel-footer">
-                <a class="btn btn-success" href="#">Afisare articol</a>
-            </div>
-        </div>
 
         @foreach (Reaction.Models.Post post in ViewBag.Posts)
         {
             <div class="panel panel-default">
                 @Html.Partial("PostInfo", post)
-                <div class="panel-footer">
-                    <a class="btn btn-success" href="#">Afisare articol</a>
-                </div>
             </div>
         }
 

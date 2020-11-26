@@ -1,11 +1,16 @@
 ﻿@model Reaction.Models.Post
 
+@{
+    ViewBag.Title = "Edit Post";
+}
+
+<h2>Edit Post<h2>
 
 @using (Html.BeginForm(actionName: "Edit", controllerName: "Posts"))
 {
     @Html.HttpMethodOverride(HttpVerbs.Put)
 
-    @Html.HiddenFor(m => m.PostId) //nujt ce face asta
+    @Html.HiddenFor(m => m.PostId)
     <br />
     @Html.Label("Content", "Post text")
     <br />
@@ -15,6 +20,6 @@
     <br />
     @Html.HiddenFor(m => m.Date)
     <br />
-    <button class="btn btn-sm btn-success" type="submit">Modify post</button>
+    <button class="btn btn-sm btn-success" type="submit">Edit post</button>
 }
 

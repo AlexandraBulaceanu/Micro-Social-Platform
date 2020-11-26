@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "Comments";
+}
+
+@if (TempData.ContainsKey("NewComm"))
+{
+    <h1>@ViewBag.newComm</h1>
+}
+@if (TempData.ContainsKey("EditComm"))
+{
+    <h1>@ViewBag.editComm</h1>
+}
+@if (TempData.ContainsKey("DeleteComm"))
+{
+    <h1>@ViewBag.deleteComm</h1>
+}
+
+
+<h2>Comments</h2>
+
+<a class="btn btn-primary" href="/Comments/New">Add a new comment</a>
+<br />
+
+
+@foreach (var comm in ViewBag.Comments)
+{
+    <h2>@comm.Content</h2>
+    <h3>@comm.Date</h3>
+    <form method="post" action="/Comments/Edit/@comm.CommentId">
+        @Html.HttpMethodOverride(HttpVerbs.Put)
+        <button type="submit">Edit Comment</button>
+    </form>
+    <form method="post" action="/Comments/Delete/@comm.CommentId">
+        @Html.HttpMethodOverride(HttpVerbs.Delete)
+        <button type="submit">Delete Comment</button>
+    </form>
+
+    <br />
+}
