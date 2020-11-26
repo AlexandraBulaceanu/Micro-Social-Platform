@@ -1,0 +1,19 @@
+﻿@model Reaction.Models.Comment
+
+@{
+    ViewBag.Title = "New Comments";
+}
+
+<h2>New Comment</h2>
+
+<form method="post" action="/Comments/New">
+
+    @Html.Label("Content", "Add your comment")
+    @Html.Editor("Content")
+    @Html.ValidationMessageFor(c => c.Content, "Enter the content of your comment", new { @class = "text-danger" })
+
+    <input type="hidden" name="postId" value="@ViewBag.PostId" />
+
+    <button class="btn btn-success" type="submit">Add new comment</button>
+
+</form>

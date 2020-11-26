@@ -7,29 +7,29 @@ using System.Web.Mvc;
 
 namespace Reaction.Controllers
 {
-    public class PostController : Controller
+    public class PostsController : Controller
     {
         private Reaction.Models.AppContext db = new Reaction.Models.AppContext();
 
         // GET: Post
         public ActionResult Index()
         {
-            /*if (TempData.ContainsKey("message"))
-            {
-                ViewBag.message = TempData["message"].ToString();
-            }*/
+
 
             ViewBag.Posts = from post in db.Posts
                              orderby post.Date
                              select post;
-            
-            return View();
-        }
 
-        public ActionResult Show(int id)
-        {
-            Post post = db.Posts.Find(id);
-            return View(post);
+            if (TempData.ContainsKey("DeletePost"))
+                ViewBag.deletePost = TempData["DeletePost"].ToString();
+
+            if (TempData.ContainsKey("NewPost"))
+                ViewBag.addPost = TempData["NewPost"].ToString();
+
+            if (TempData.ContainsKey("EditPost"))
+                ViewBag.editPost = TempData["EditPost"].ToString();
+
+            return View();
         }
 
         public ActionResult New()
@@ -45,8 +45,9 @@ namespace Reaction.Controllers
                 if (ModelState.IsValid)
                 {
                     db.Posts.Add(post);
+                    post.Date = DateTime.Now;
                     db.SaveChanges();
-                    TempData["message"] = "The post has been added!";
+                    TempData["NewPost"] = "The post has been added!";
                     return RedirectToAction("Index");
                 }
                 else
@@ -60,7 +61,13 @@ namespace Reaction.Controllers
             }
         }
 
-        public ActionResult Edit(int id)
+        public ActionResult Show(int id)
+        {
+            Post post = db.Posts.Find(id);
+            return View(post);
+        }
+
+            public ActionResult Edit(int id)
         {
             Post post = db.Posts.Find(id);
             return View(post);
@@ -73,13 +80,12 @@ namespace Reaction.Controllers
             {
                 Post post = db.Posts.Find(id);
 
-                //throw new Exception();
-
                 if (TryUpdateModel(post))
                 {
                     post.Content = requestPost.Content;
+                    post.Date = DateTime.Now;
                     db.SaveChanges();
-                    TempData["message"] = "The post was modified!";
+                    TempData["EditPost"] = "The post was modified!";
                     return RedirectToAction("Index");
                 }
 
@@ -92,13 +98,26 @@ namespace Reaction.Controllers
         }
 
         [HttpDelete]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int postId)
         {
-            Post post = db.Posts.Find(id);
-            db.Posts.Remove(post);
-            TempData["message"] = "The post was deleted!";
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                var comments = from comment in db.Comments
+                               where comment.PostId == postId
+                               select comment;
+                foreach (Comment comm in comments)
+                {
+                    db.Comments.Remove(comm);
+                }
+                Post post = db.Posts.Find(postId);
+                db.Posts.Remove(post);
+                db.SaveChanges();
+                TempData["deletePost"] = "The post was deleted!";
+                return RedirectToAction("Index");
+            } catch (Exception e) {
+                return View();
+            }
+
         }
     }
 }
