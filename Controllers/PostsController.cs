@@ -34,7 +34,9 @@ namespace Reaction.Controllers
 
         public ActionResult New()
         {
-            return View();
+            Post post = new Post();
+
+            return View(post);
         }
 
         [HttpPost]
@@ -44,8 +46,9 @@ namespace Reaction.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    db.Posts.Add(post);
                     post.Date = DateTime.Now;
+                    post.Likes = 0;
+                    db.Posts.Add(post);
                     db.SaveChanges();
                     TempData["NewPost"] = "The post has been added!";
                     return RedirectToAction("Index");

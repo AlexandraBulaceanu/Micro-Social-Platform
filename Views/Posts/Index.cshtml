@@ -37,9 +37,20 @@
 
         @foreach (Reaction.Models.Post post in ViewBag.Posts)
         {
-            <div class="panel panel-default">
-                @Html.Partial("PostInfo", post)
-            </div>
+            
+              //  @Html.Partial("PostInfo", post)
+                <div class="panel panel-default">
+                    <div class="panel-heading">This is my post!</div>
+                    <div class="panel-body">
+                        Post text: <strong>@post.Content</strong>
+                        <br />
+                        <span class="label label-success">@post.Date</span>
+                        <br />
+                        Likes: <strong>@post.Likes</strong>
+                        <br />
+                        <hr>
+                    </div>
+                </div>
         }
 
     </div>

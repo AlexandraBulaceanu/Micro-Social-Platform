@@ -19,7 +19,7 @@
     @Html.EditorFor(m => m.Description)
     @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
     <br />
-    //@Html.DropDownList(m => m.Visibility.ToString(), new SelectList(Enum.GetValues(typeof(Profile.Visible))),"Select Gender")
+   // @Html.DropDownList(m => m.Visibility.ToString(), new SelectList(Model.Visibile.GetValues(typeof(Profile.Visible))),"Select Visibility")
     <br />
     <br />
     <button class="btn btn-sm btn-success" type="submit">Modify post</button>

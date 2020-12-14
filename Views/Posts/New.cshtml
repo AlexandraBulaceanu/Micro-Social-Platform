@@ -1,8 +1,8 @@
 ﻿@model Reaction.Models.Post
 
-<h2>Adaugare articol</h2>
+<h2>Add post</h2>
 
-@using (Html.BeginForm(actionName: "New", controllerName: "Post"))
+@using (Html.BeginForm(actionName: "New", controllerName: "Posts"))
 {
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
