@@ -1,4 +1,5 @@
-﻿@model Reaction.Models.Post
+﻿@model  Reaction.Models.Post
+
 
 @{
     Layout = null;
@@ -26,6 +27,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title></title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
     <div>
@@ -37,20 +39,26 @@
 
         @foreach (Reaction.Models.Post post in ViewBag.Posts)
         {
-            
-              //  @Html.Partial("PostInfo", post)
-                <div class="panel panel-default">
-                    <div class="panel-heading">This is my post!</div>
-                    <div class="panel-body">
-                        Post text: <strong>@post.Content</strong>
-                        <br />
-                        <span class="label label-success">@post.Date</span>
-                        <br />
-                        Likes: <strong>@post.Likes</strong>
-                        <br />
-                        <hr>
-                    </div>
-                </div>
+
+            //  @Html.Partial("PostInfo", post)
+    <div class="panel panel-default">
+        <div class="panel-heading">This is my post!</div>
+        <div class="panel-body">
+            Post text: <strong>@post.Content</strong>
+            <br />
+            <span class="label label-success">@post.Date</span>
+            <br />
+            Likes: <strong>@post.Likes</strong>
+            <br />
+            <a class="btn btn-primary" href="/Comments/New/@post.PostId">Add a new comment</a>
+            <br />
+            <a class="btn btn-primary" href="/Posts/Show/@post.PostId">Show post and comments</a>
+            <br />
+            <hr>
+        </div>
+
+       
+    </div>
         }
 
     </div>

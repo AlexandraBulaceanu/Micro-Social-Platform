@@ -6,20 +6,43 @@
 
 <h2>Show posts</h2>
 
-@foreach (var post in ViewBag.Posts)
+
+<div class="panel panel-default">
+    <div class="panel-heading">This is my post!</div>
+    <div class="panel-body">
+        Post text: <strong>@Model.Content</strong>
+        <br />
+        <span class="label label-success">@Model.Date</span>
+        <br />
+        Likes: <strong>@Model.Likes</strong>
+        <br />
+        <a class="btn btn-primary" href="/Comments/New/@Model.PostId">Add a new comment</a>
+        <br />
+
+        <form action="/Posts/Edit/@Model.PostId">
+            @Html.HttpMethodOverride(HttpVerbs.Put)
+            <button class="btn btn-primary" type="submit">Edit Post</button>
+        </form>
+        <form method="post" action="/Posts/Delete/@Model.PostId">
+            @Html.HttpMethodOverride(HttpVerbs.Delete)
+            <button class="btn btn-primary" type="submit">Delete Post</button>
+        </form>
+        <hr>
+    </div>
+</div>
+
+
+@foreach (var comm in Model.Comments)
 {
-    <h2>@post.Content</h2>
-    <h3>@post.Date</h3>
-    <form action="/Posts/Edit/@post.PostId">
-        @Html.HttpMethodOverride(HttpVerbs.Put)
-        <button type="submit">Edit Post</button>
+    <h2>@comm.Content</h2>
+    <h3>@comm.Date</h3>
+    <form action="/Comments/Edit/@comm.CommentId">
+        <button type="submit">Edit Comment</button>
     </form>
-    <form method="post" action="/Posts/Delete/@post.PostId">
+    <form method="post" action="/Comments/Delete/@comm.CommentId">
         @Html.HttpMethodOverride(HttpVerbs.Delete)
-        <button type="submit">Delete Post</button>
+        <button type="submit">Delete Comment</button>
     </form>
-    <form action="/Comments/Index/@post.PostId">
-        <button type="submit">Show Comments</button>
-    </form>
+
     <br />
 }

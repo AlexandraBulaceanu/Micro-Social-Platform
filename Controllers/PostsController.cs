@@ -9,7 +9,7 @@ namespace Reaction.Controllers
 {
     public class PostsController : Controller
     {
-        private Reaction.Models.AppContext db = new Reaction.Models.AppContext();
+        private Reaction.Models.ApplicationDbContext db = new Reaction.Models.ApplicationDbContext();
 
         // GET: Post
         public ActionResult Index()
@@ -101,18 +101,18 @@ namespace Reaction.Controllers
         }
 
         [HttpDelete]
-        public ActionResult Delete(int postId)
+        public ActionResult Delete(int id)
         {
             try
             {
                 var comments = from comment in db.Comments
-                               where comment.PostId == postId
+                               where comment.PostId == id
                                select comment;
                 foreach (Comment comm in comments)
                 {
                     db.Comments.Remove(comm);
                 }
-                Post post = db.Posts.Find(postId);
+                Post post = db.Posts.Find(id);
                 db.Posts.Remove(post);
                 db.SaveChanges();
                 TempData["deletePost"] = "The post was deleted!";

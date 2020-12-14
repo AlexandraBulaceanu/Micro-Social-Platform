@@ -9,7 +9,7 @@ namespace Reaction.Controllers
 {
     public class ProfilesController : Controller
     {
-        private Reaction.Models.AppContext db = new Reaction.Models.AppContext();
+        private Reaction.Models.ApplicationDbContext db = new Reaction.Models.ApplicationDbContext();
 
         // GET: Profiles
         public ActionResult Index()

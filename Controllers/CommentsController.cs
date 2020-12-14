@@ -9,7 +9,7 @@ namespace Reaction.Controllers
 {
     public class CommentsController : Controller
     {
-        private Reaction.Models.AppContext db = new Reaction.Models.AppContext();
+        private Reaction.Models.ApplicationDbContext db = new Reaction.Models.ApplicationDbContext();
 
         // GET: Comments
         public ActionResult Index(int postId)
@@ -34,15 +34,18 @@ namespace Reaction.Controllers
             return View();
         }
 
-        public ActionResult New()
+        public ActionResult New(int id)
         {
-            return View();
+            Comment comment = new Comment();
+            ViewBag.PostId = id;
+            return View(comment);
         }
 
         [HttpPost]
         public ActionResult New(Comment comm)
         {
             comm.Date = DateTime.Now;
+            comm.Likes = 0;
             try
             {
                 db.Comments.Add(comm);
@@ -62,7 +65,7 @@ namespace Reaction.Controllers
         {
             Comment comm = db.Comments.Find(id);
             ViewBag.Comments = comm;
-            return View();
+            return View(comm);
         }
 
         [HttpPut]
