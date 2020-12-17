@@ -1,4 +1,5 @@
-﻿using Reaction.Models;
+﻿using Microsoft.AspNet.Identity;
+using Reaction.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace Reaction.Controllers
             var comments = from comment in db.Comments
                            where comment.PostId == postId
                            select comment;
+            ViewBag.isAdmin = User.IsInRole("Admin");
 
             ViewBag.PostId = postId;
             ViewBag.Comments = comments;
@@ -31,20 +33,29 @@ namespace Reaction.Controllers
             if (TempData.ContainsKey("EditComm"))
                 ViewBag.editComm = TempData["EditComm"].ToString();
 
+            if (TempData.ContainsKey("Permission"))
+                ViewBag.permission = TempData["Permission"].ToString();
+
+
+
             return View();
         }
-
+        [Authorize(Roles ="Admin,User")]
         public ActionResult New(int id)
         {
             Comment comment = new Comment();
+            comment.UserId = User.Identity.GetUserId();
             ViewBag.PostId = id;
             return View(comment);
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,User")]
         public ActionResult New(Comment comm)
         {
             comm.Date = DateTime.Now;
+
+            comm.UserId = User.Identity.GetUserId();
             comm.Likes = 0;
             try
             {
@@ -61,19 +72,31 @@ namespace Reaction.Controllers
 
         }
 
+        [Authorize(Roles = "Admin,User")]
         public ActionResult Edit(int id)
         {
             Comment comm = db.Comments.Find(id);
             ViewBag.Comments = comm;
+            if(comm != null && comm.UserId != User.Identity.GetUserId() && !User.IsInRole("Admin"))
+            {
+                TempData["Permission"] = "Not enough permissions";
+                return RedirectToAction("Index", "Comments", comm.PostId);
+            }
             return View(comm);
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin,User")]
         public ActionResult Edit(int id, Comment requestComment)
         {
             try
             {
                 Comment comm = db.Comments.Find(id);
+                if (comm != null && comm.UserId != User.Identity.GetUserId() && !User.IsInRole("Admin"))
+                {
+                    TempData["Permission"] = "Not enough permissions";
+                    return RedirectToAction("Index", "Comments", comm.PostId);
+                }
                 if (TryUpdateModel(comm))
                 {
                     comm.Content = requestComment.Content;
@@ -90,11 +113,17 @@ namespace Reaction.Controllers
 
         }
         [HttpDelete]
+        [Authorize(Roles = "Admin,User")]
         public ActionResult Delete(int id)
         {
             try
             {
                 Comment comm = db.Comments.Find(id);
+                if (comm != null && comm.UserId != User.Identity.GetUserId() && !User.IsInRole("Admin"))
+                {
+                    TempData["Permission"] = "Not enough permissions";
+                    return RedirectToAction("Index", "Comments", comm.PostId);
+                }
                 db.Comments.Remove(comm);
                 db.SaveChanges();
                 TempData["Delete"] = "The comment was deleted";

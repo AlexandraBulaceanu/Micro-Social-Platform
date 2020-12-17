@@ -1,4 +1,5 @@
-﻿using Reaction.Models;
+﻿using Microsoft.AspNet.Identity;
+using Reaction.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace Reaction.Controllers
         private Reaction.Models.ApplicationDbContext db = new Reaction.Models.ApplicationDbContext();
 
         // GET: Post
+
         public ActionResult Index()
         {
 
@@ -20,6 +22,11 @@ namespace Reaction.Controllers
                              orderby post.Date
                              select post;
 
+
+
+            if (TempData.ContainsKey("Permission"))
+                ViewBag.Permission = TempData["Permission"].ToString();
+            
             if (TempData.ContainsKey("DeletePost"))
                 ViewBag.deletePost = TempData["DeletePost"].ToString();
 
@@ -32,6 +39,7 @@ namespace Reaction.Controllers
             return View();
         }
 
+        [Authorize(Roles ="Admin,User")]
         public ActionResult New()
         {
             Post post = new Post();
@@ -40,12 +48,14 @@ namespace Reaction.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles="Admin,User")]
         public ActionResult New(Post post)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    post.UserId = User.Identity.GetUserId();
                     post.Date = DateTime.Now;
                     post.Likes = 0;
                     db.Posts.Add(post);
@@ -66,22 +76,40 @@ namespace Reaction.Controllers
 
         public ActionResult Show(int id)
         {
+
+            ViewBag.isAdmin = User.IsInRole("Admin");
             Post post = db.Posts.Find(id);
+            ViewBag.UserId = User.Identity.GetUserId();
             return View(post);
         }
 
-            public ActionResult Edit(int id)
+
+        [Authorize(Roles = "Admin,User")]
+        public ActionResult Edit(int id)
         {
             Post post = db.Posts.Find(id);
+            if(post != null && post.UserId == User.Identity.GetUserId() && !User.IsInRole("Admin"))
+            {
+                TempData["Permission"] = "Not enough permissions";
+                return RedirectToAction("Index", "Posts");
+            }
             return View(post);
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin,User")]
         public ActionResult Edit(int id, Post requestPost)
         {
+           
+
             try
             {
                 Post post = db.Posts.Find(id);
+                if (post != null && post.UserId == User.Identity.GetUserId() && !User.IsInRole("Admin"))
+                {
+                    TempData["Permission"] = "Not enough permissions";
+                    return RedirectToAction("Index", "Posts");
+                }
 
                 if (TryUpdateModel(post))
                 {
@@ -101,10 +129,20 @@ namespace Reaction.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles ="Admin,User")]
         public ActionResult Delete(int id)
         {
+           
+
             try
             {
+                Post post = db.Posts.Find(id);
+                if (post != null && post.UserId == User.Identity.GetUserId() && !User.IsInRole("Admin"))
+                {
+                    TempData["Permission"] = "Not enough permissions";
+                    return RedirectToAction("Index", "Posts");
+                }
+
                 var comments = from comment in db.Comments
                                where comment.PostId == id
                                select comment;
@@ -112,7 +150,6 @@ namespace Reaction.Controllers
                 {
                     db.Comments.Remove(comm);
                 }
-                Post post = db.Posts.Find(id);
                 db.Posts.Remove(post);
                 db.SaveChanges();
                 TempData["deletePost"] = "The post was deleted!";

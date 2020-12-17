@@ -18,7 +18,8 @@
         <br />
         <a class="btn btn-primary" href="/Comments/New/@Model.PostId">Add a new comment</a>
         <br />
-
+        @if (ViewBag.UserId == Model.UserId || ViewBag.IsAdmin == true)
+        {
         <form action="/Posts/Edit/@Model.PostId">
             @Html.HttpMethodOverride(HttpVerbs.Put)
             <button class="btn btn-primary" type="submit">Edit Post</button>
@@ -27,6 +28,7 @@
             @Html.HttpMethodOverride(HttpVerbs.Delete)
             <button class="btn btn-primary" type="submit">Delete Post</button>
         </form>
+        }
         <hr>
     </div>
 </div>
@@ -36,6 +38,8 @@
 {
     <h2>@comm.Content</h2>
     <h3>@comm.Date</h3>
+
+    if(ViewBag.UserId == comm.UserId || ViewBag.IsAdmin == true) { 
     <form action="/Comments/Edit/@comm.CommentId">
         <button type="submit">Edit Comment</button>
     </form>
@@ -43,6 +47,7 @@
         @Html.HttpMethodOverride(HttpVerbs.Delete)
         <button type="submit">Delete Comment</button>
     </form>
+    }
 
     <br />
 }

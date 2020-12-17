@@ -16,6 +16,10 @@
     <h1>@ViewBag.deleteComm</h1>
 }
 
+@if (TempData.ContainsKey("Permission"))
+{
+    <h1>@ViewBag.permission</h1>
+}
 
 <h2>Comments</h2>
 
