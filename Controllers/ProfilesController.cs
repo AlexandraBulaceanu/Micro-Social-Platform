@@ -1,4 +1,5 @@
-﻿using Reaction.Models;
+﻿using Microsoft.AspNet.Identity;
+using Reaction.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,14 +27,22 @@ namespace Reaction.Controllers
             return Redirect("/Home/Index");
         }
 
+        public ActionResult New()
+        {
+            Profile profile = new Profile();
+
+            return View(profile);
+        }
+
         [HttpPost]
         public ActionResult New(Profile profile)
         {
             try
             {
+                profile.UserId = User.Identity.GetUserId();
                 db.Profiles.Add(profile);
                 db.SaveChanges();
-                return Redirect("/Profile/Show/" + profile.ProfileId);
+                return Redirect("/Profiles/Show/" + profile.ProfileId);
             }
 
             catch (Exception e)
@@ -41,6 +50,15 @@ namespace Reaction.Controllers
                 return Redirect("/Home/Index");
             }
 
+        }
+
+        public ActionResult Show(int id)
+        {
+
+            ViewBag.isAdmin = User.IsInRole("Admin");
+            Profile profile = db.Profiles.Find(id);
+            ViewBag.UserId = User.Identity.GetUserId();
+            return View(profile);
         }
 
         public ActionResult Edit(int id)
@@ -63,7 +81,7 @@ namespace Reaction.Controllers
                     profile.Visibility = requestProfile.Visibility;
                     db.SaveChanges();
                 }
-                return Redirect("/Profile/Show/" + profile.ProfileId);
+                return Redirect("/Profiles/Show/" + profile.ProfileId);
             }
             catch (Exception e)
             {
@@ -71,5 +89,7 @@ namespace Reaction.Controllers
             }
 
         }
+
     }
+
 }

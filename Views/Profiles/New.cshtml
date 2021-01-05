@@ -2,7 +2,7 @@
 
 <h2>Add profile</h2>
 
-@using (Html.BeginForm(actionName: "New", controllerName: "Profile"))
+@using (Html.BeginForm(actionName: "New", controllerName: "Profiles"))
 {
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
@@ -11,13 +11,21 @@
     @Html.TextArea("Username", null, new { @class = "form-control" })
     @Html.ValidationMessage("Username", null, new { @class = "text-danger" })
     <br />
-    @Html.Label("Description","Description")
+    @Html.Label("Description", "Description")
     <br />
     @Html.TextArea("Description", null, new { @class = "form-control" })
     @Html.ValidationMessage("Description", null, new { @class = "text-danger" })
     <br />
+    @Html.Label("Visibility","Visibility")
+    @Html.Editor("Visibility")
+    //<label>Select profile visibility</label>
+    /*
+    @Html.DropDownListFor(m => m.Visibility, new SelectList(Model.VisibleItems, "Value", "Text"),
+    "Select profile visibility", new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Visibility, "", new { @class = "text-danger" })
+    */
     <br />
 
-    <button class="btn btn-sm btn-success" type="submit">Share post</button>
+    <button class="btn btn-sm btn-success" type="submit">Create</button>
 
 }

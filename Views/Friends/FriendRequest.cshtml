@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "ShowFriendRequest";
+}
+<h2>Friend Requests</h2>
+<br />
+
+@foreach (var profile in ViewBag.profiles)
+{
+    <h2>@profile.Username</h2>
+    <br />
+    <h2>@profile.Description</h2>
+    <br />
+    <form action="/Friends/AcceptRequest/@profile.ProfileId">
+        <button type="submit">Accept Request</button>
+    </form>
+    <br />
+    <form action="/Friends/DeleteRequest/@profile.ProfileId">
+        <button type="submit">Delete Request</button>
+    </form>
+
+
+    <br />
+}

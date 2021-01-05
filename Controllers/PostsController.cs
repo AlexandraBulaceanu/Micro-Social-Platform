@@ -58,6 +58,7 @@ namespace Reaction.Controllers
                     post.UserId = User.Identity.GetUserId();
                     post.Date = DateTime.Now;
                     post.Likes = 0;
+                    post.Comments = new List<Comment>(); ///Newly added
                     db.Posts.Add(post);
                     db.SaveChanges();
                     TempData["NewPost"] = "The post has been added!";
@@ -127,6 +128,16 @@ namespace Reaction.Controllers
                 return View(requestPost);
             }
         }
+
+        ///newly added
+        [NonAction]
+        public void UpdateLikes(int id)
+        {
+            Post requestPost = db.Posts.Find(id);
+            requestPost.Likes++;
+            Edit(id, requestPost);
+        }
+        ///newly added
 
         [HttpDelete]
         [Authorize(Roles ="Admin,User")]

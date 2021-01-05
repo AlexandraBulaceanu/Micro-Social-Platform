@@ -7,47 +7,45 @@
 <h2>Show posts</h2>
 
 
-<div class="panel panel-default">
-    <div class="panel-heading">This is my post!</div>
-    <div class="panel-body">
-        Post text: <strong>@Model.Content</strong>
-        <br />
-        <span class="label label-success">@Model.Date</span>
-        <br />
-        Likes: <strong>@Model.Likes</strong>
-        <br />
-        <a class="btn btn-primary" href="/Comments/New/@Model.PostId">Add a new comment</a>
-        <br />
-        @if (ViewBag.UserId == Model.UserId || ViewBag.IsAdmin == true)
-        {
-        <form action="/Posts/Edit/@Model.PostId">
-            @Html.HttpMethodOverride(HttpVerbs.Put)
-            <button class="btn btn-primary" type="submit">Edit Post</button>
-        </form>
-        <form method="post" action="/Posts/Delete/@Model.PostId">
-            @Html.HttpMethodOverride(HttpVerbs.Delete)
-            <button class="btn btn-primary" type="submit">Delete Post</button>
-        </form>
-        }
-        <hr>
-    </div>
-</div>
 
+<div class="panel panel-default">
+    <div class="panel-heading">
+        My post from @Model.Date.ToString("dd/MM/yyyy") at @Model.Date.ToString("HH:mm")
+    </div>
+    <div class="panel-body">
+        <strong>@Model.Content</strong>
+        <hr>
+        Likes: <strong>@Model.Likes</strong>
+    </div>
+    <div class="panel-footer row">
+
+        <a class="btn-sm btn-primary col-lg-1" href="/Comments/New/@Model.PostId">Add comment</a>
+        <div>
+            @if (ViewBag.UserId == Model.UserId || ViewBag.IsAdmin == true)
+            {
+                <form action="/Posts/Edit/@Model.PostId">
+                    @Html.HttpMethodOverride(HttpVerbs.Put)
+                    <button class="btn-sm btn-primary col-lg-1" type="submit">Edit Post</button>
+                </form>
+                <form method="post" action="/Posts/Delete/@Model.PostId">
+                    @Html.HttpMethodOverride(HttpVerbs.Delete)
+                    <button class="btn-sm btn-primary col-lg-1" type="submit">Delete Post</button>
+                </form>
+            }
+        </div>
+        <a class="btn-sm btn-primary col-lg-1">
+            <span class="glyphicon glyphicon-star" aria-hidden="true" href="Posts/UpdateLikes/@Model.PostId"></span>
+        </a>
+    </div>
+
+
+
+</div>
 
 @foreach (var comm in Model.Comments)
 {
-    <h2>@comm.Content</h2>
-    <h3>@comm.Date</h3>
+    @Html.Partial("CommentInfo", comm)
 
-    if(ViewBag.UserId == comm.UserId || ViewBag.IsAdmin == true) { 
-    <form action="/Comments/Edit/@comm.CommentId">
-        <button type="submit">Edit Comment</button>
-    </form>
-    <form method="post" action="/Comments/Delete/@comm.CommentId">
-        @Html.HttpMethodOverride(HttpVerbs.Delete)
-        <button type="submit">Delete Comment</button>
-    </form>
-    }
-
-    <br />
 }
+
+

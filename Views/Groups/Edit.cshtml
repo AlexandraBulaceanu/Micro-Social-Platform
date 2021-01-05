@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit group</h2>
+
+<form method="post" action="/Groups/Edit/@ViewBag.group.GroupId">
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+
+    @Html.Label("Name", "Change the name")
+    @Html.Editor("Name")
+
+    @Html.Label("Visibility", "Change the visibility")
+    @Html.Editor("Visibility")
+
+    @Html.Label("Description", "Change the description")
+    @Html.Editor("Description")
+
+
+    <button type="submit">Edit group</button>
+
+
+</form>

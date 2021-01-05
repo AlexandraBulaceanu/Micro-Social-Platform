@@ -1,0 +1,61 @@
+﻿@model Reaction.Models.Group
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Groups Index</h2>
+
+
+<h3>@ViewBag.createCroup</h3>
+<h3>@ViewBag.newToGroup</h3>
+<h3>@ViewBag.editGroup</h3>
+<h3>@ViewBag.deleteGroup</h3>
+
+
+@if (Request.IsAuthenticated)
+{
+    <a class="btn btn-primary" href="/Groups/New">New group</a>
+}
+
+@foreach (var group in ViewBag.groups)
+{
+    //if (group.GroupId != 1)
+    //{
+    <h1>@group.Name</h1>
+
+    if (ViewBag.IsAdmin == true || (ViewBag.LoggedIn == true && ViewBag.UserId == group.UserId))
+    {
+        <form action="/Groups/Edit/@group.GroupId">
+            <button type="submit">Edit Group</button>
+        </form>
+        <form method="post" action="/Groups/Delete/@group.GroupId">
+            @Html.HttpMethodOverride(HttpVerbs.Delete)
+            <button type="submit">Delete Group</button>
+        </form>
+    }
+    if (ViewBag.LoggedIn == true && group.Profiles.Contains(ViewBag.profile) == false)
+    {
+        <form method="post" action="/Groups/NewToGroup/@group.GroupId">
+            <button type="submit">Join Group</button>
+        </form>
+    }
+    if (ViewBag.LoggedIn == true && group.Profiles.Contains(ViewBag.profile))
+    {
+        <form method="post" action="/Groups/NewToGroup/@group.GroupId">
+            <button type="submit">Leave Group</button>
+        </form>
+    }
+
+    if (ViewBag.isAdmin == true || (ViewBag.LoggedIn == true && group.Profiles.Contains(ViewBag.profile) == true))
+    {
+        <form action="/Groups/Show/@group.GroupId">
+            <button type="submit">Group posts</button>
+        </form>
+    }
+
+    //}
+    <br />
+}
+//|| group.Visibility.Equals(group.VisibleGroup.Public)

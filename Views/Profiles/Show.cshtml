@@ -1,0 +1,29 @@
+﻿@model Reaction.Models.Profile
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+
+        <h1>@Model.Username</h1>
+        <h1>@Model.Description</h1>
+        <h1>@Model.Visibility</h1>
+
+        <form method="post" action="/Friends/FriendRequest/@Model.ProfileId">
+            
+            <button type="submit">Send Friend Request</button>
+        </form>
+
+        @foreach (var post in Model.Posts)
+        {
+            <h1>Prost</h1>
+            @Html.Partial("PostInfo", post)
+        }
+    </div>
+</body>
+</html>

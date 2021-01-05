@@ -31,6 +31,8 @@ namespace Reaction.Models
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Profile> Profiles { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<Friend> Friends { get; set; }
 
         public static ApplicationDbContext Create()
         {

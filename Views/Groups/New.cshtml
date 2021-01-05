@@ -1,0 +1,24 @@
+﻿@model Reaction.Models.Group
+
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>New group</h2>
+
+<form method="post" action="/Groups/New">
+
+    @Html.Label("Name", "Group name")
+    @Html.Editor("Name")
+    @Html.ValidationMessageFor(m => m.Name, "Introducing the name of the group is mandatory", new { @class = "text-danger " })
+
+
+    @Html.Label("Description", "Add a description")
+    @Html.Editor("Description")
+
+    @Html.Label("Visibility", "Visibility")
+    @Html.Editor("Visibility")
+
+    <button type="submit">Create group</button>
+
+</form>

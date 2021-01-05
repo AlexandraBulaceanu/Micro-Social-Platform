@@ -1,12 +1,20 @@
 ﻿<div class="panel panel-default">
-    <div class="panel-heading">This is my post!</div>
-    <div class="panel-body">
-        Post text: <strong>@Model.Content</strong>
-        <br />
-        <span class="label label-success">@Model.Date</span>
-        <br />
-        Likes: <strong>@Model.Likes</strong>
-        <br />
-        <hr>
+    <div class="panel-heading">
+        My post from @Model.Date.ToString("dd/MM/yyyy") at @Model.Date.ToString("HH:mm")
     </div>
+    <div class="panel-body">
+        <strong>@Model.Content</strong>
+        <hr>
+        Likes: <strong>@Model.Likes</strong>
+    </div>
+    <div class="panel-footer">
+
+        <a class="btn-sm btn-primary" href="/Comments/New/@Model.PostId">Add a new comment</a>
+
+        <a class="btn-sm btn-primary" href="/Posts/Show/@Model.PostId">Show post and comments</a>
+        <a class="btn-sm btn-primary">
+            <span class="glyphicon glyphicon-star" aria-hidden="true" href="Posts/UpdateLikes/@Model.PostId"></span>
+        </a>
+    </div>
+  
 </div>

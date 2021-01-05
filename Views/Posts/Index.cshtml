@@ -2,7 +2,6 @@
 
 
 @{
-    Layout = null;
     ViewBag.Message = "Here will be one post with comments";
 }
 
@@ -34,41 +33,21 @@
     <title></title>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
 </head>
-<body>
+<body class="container">
+ 
     <div>
-        <h2>These are my posts</h2>
+        <h2 class="col-md-push-0 row" style="margin-bottom: 20px">My posts</h2>
+        <div class="row" style="margin-bottom: 20px">
+            <a class="btn-sm btn-primary " href="/Posts/New">New post</a>
+        </div>
 
-        <a class="btn btn-primary" href="/Posts/New">New post</a>
-        <br />
-
-
-        @foreach (Reaction.Models.Post post in ViewBag.Posts)
-        {
-            
-
-            //  @Html.Partial("PostInfo", post)
-            <div class="panel panel-default">
-                <div class="panel-heading">This is my post!</div>
-                <div class="panel-body">
-                    Post text: <strong>@post.Content</strong>
-                    <br />
-                    <span class="label label-success">@post.Date</span>
-                    <br />
-                    Likes: <strong>@post.Likes</strong>
-                    <br />
-                    <a class="btn btn-primary" href="/Comments/New/@post.PostId">Add a new comment</a>
-                    <br />
-                    <a class="btn btn-primary" href="/Posts/Show/@post.PostId">Show post and comments</a>
-                    <br />
-                    <hr>
-                </div>
-
-
-            </div>
-        }
-
+        <div class="row">
+            @foreach (Reaction.Models.Post post in ViewBag.Posts)
+            {
+                //if(post.Pro)
+                @Html.Partial("PostInfo", post)            }
+        </div>
     </div>
 </body>
 </html>
-
 

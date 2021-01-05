@@ -1,0 +1,71 @@
+﻿@model Reaction.Models.Post
+
+@{
+    ViewBag.Title = "Show";
+}
+
+<h2>Group posts</h2>
+
+<h3>@ViewBag.deleteGroup</h3>
+<h3>@ViewBag.createGroup</h3>
+<h3>@ViewBag.editGroup</h3>
+
+
+@using (Html.BeginForm(actionName: "New", controllerName: "Posts"))
+{
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+    @Html.Label("Content", "Post text")
+    <br />
+    @Html.TextArea("Content", null, new { @class = "form-control" })
+    @Html.ValidationMessage("Content", null, new { @class = "text-danger" })
+    <br />
+    <br />
+
+    <button class="btn btn-sm btn-success" type="submit">Share post</button>
+}
+
+
+@foreach (var post in ViewBag.Posts)
+{
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            My post from @Model.Date.ToString("dd/MM/yyyy") at @Model.Date.ToString("HH:mm")
+        </div>
+        <div class="panel-body">
+            <strong>@Model.Content</strong>
+            <hr>
+            Likes: <strong>@Model.Likes</strong>
+        </div>
+        <div class="panel-footer row">
+
+            <a class="btn-sm btn-primary col-lg-1" href="/Comments/New/@Model.PostId">Add comment</a>
+            <div>
+                @if (ViewBag.UserId == Model.UserId || ViewBag.IsAdmin == true)
+                {
+                    <form action="/Posts/Edit/@Model.PostId">
+                        @Html.HttpMethodOverride(HttpVerbs.Put)
+                        <button class="btn-sm btn-primary col-lg-1" type="submit">Edit Post</button>
+                    </form>
+                    <form method="post" action="/Posts/Delete/@Model.PostId">
+                        @Html.HttpMethodOverride(HttpVerbs.Delete)
+                        <button class="btn-sm btn-primary col-lg-1" type="submit">Delete Post</button>
+                    </form>
+                }
+            </div>
+            <a class="btn-sm btn-primary col-lg-1">
+                <span class="glyphicon glyphicon-star" aria-hidden="true" href="Posts/UpdateLikes/@Model.PostId"></span>
+            </a>
+        </div>
+
+
+
+    </div>
+
+    foreach (var comm in Model.Comments)
+    {
+        @Html.Partial("CommentInfo", comm)
+
+    }
+}

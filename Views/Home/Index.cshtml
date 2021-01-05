@@ -1,31 +1,46 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿@{ ViewBag.Title = "Home Page";
+                ViewBag.color = "black"; }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+<div class="jumbotron container">
+    <div>
+        <div class="col-lg-6">
+            <br />
+            <br />
+            <h1 class="row">Reaction</h1>
+            <p class="row lead">A new type of a social platform.</p>
+        </div>
+        <div class="col-lg-1">
+            <svg width="257" height="256" viewBox="0 0 257 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M256.747 224.156L139.591 224.156L45.5539 128.091L139.591 32.027L256.747 32.027L256.747 0.182617L130.06 0.182612C124.041 0.182611 118.356 2.41174 114.614 6.22246L4.99465 118.209C2.1654 121.107 0.747649 124.599 0.747649 128.091C0.747649
+                  131.584 2.16539 135.076 4.99465 137.963L114.614 249.954C118.356 253.776 124.04 255.999 130.06 255.999L256.747 255.999L256.747 224.156Z" fill=@ViewBag.color />
+                <path d="M145.699 249.778L252.48 137.786C257.998 132.001 257.998 123.817 252.48 118.026L145.699 6.03985C142.054 2.22411 136.517
+                  -5.24978e-06 130.654 -5.50607e-06L0.854028 -1.11798e-05L0.854027 31.8443L121.376 31.8443L212.971 127.909L121.376 223.973L0.854019 223.973L0.854017
+                  255.817L0.854017 255.822L130.654 255.822C136.517 255.822 142.061 253.599 145.699 249.778Z" fill=@ViewBag.color />
+                <path d="M131.097 204.825L55.0599 129.904L201.099 129.904L131.097 204.825Z" fill=@ViewBag.color />
+            </svg>
+        </div>
+    </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Time is everything</h2>
+            <p>
+                Every user has a time-wallet. More or less, every action on this platform will cost time. The more you stay, the more it will cost to make any operation.
+                Your wallet is recharged by receiving likes, comments, playing games, or watching ads.
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h2>Statistics</h2>
+            <p>
+                The user accesses this section to know how much time has he spend on what.
+                Also, you can see the heatmap of the posts, so you know what people want to see on the profile.
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h2>Hashtag bio</h2>
+            <p>Creating a bio of hashtags to create better matching between users. This makes more likely that two strangers become frineds.</p>
+        </div>
     </div>
 </div>

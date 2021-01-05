@@ -21,13 +21,25 @@ namespace Reaction.Models
         public string Description { get; set; }
 
         [Required]
-        public int Username { get; set; }
+        public string Username { get; set; }
 
         [Required]
-        public bool Visibility { get; set; }
+        public Visible Visibility { get; set; }
 
-       // public virtual ICollection<Post> Posts { get; set; }
+        public string UserId { get; set; }
 
-       // public IEnumerable<SelectListItem> Visible { get; set; }
+        public virtual ApplicationUser User { get; set; }
+
+        public virtual ICollection<Post> Posts { get; set; }
+
+        public virtual ICollection<Group> Groups { get; set; }
+
+        public virtual ICollection<Profile> FriendRequests { get; set; }
+
+        public virtual ICollection<Friend> Friends { get; set; }
+
+        public IEnumerable<Visible> VisibleItems { get; set; }
     }
 }
+
+//TODO: add some other fields
