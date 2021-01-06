@@ -14,7 +14,8 @@
         <button type="submit">Accept Request</button>
     </form>
     <br />
-    <form action="/Friends/DeleteRequest/@profile.ProfileId">
+    <form method="post" action="/Friends/DeleteFriendRequest/@profile.ProfileId">
+        @Html.HttpMethodOverride(HttpVerbs.Delete)
         <button type="submit">Delete Request</button>
     </form>
 

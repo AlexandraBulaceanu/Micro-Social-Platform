@@ -40,8 +40,21 @@ namespace Reaction.Controllers
             try
             {
                 profile.UserId = User.Identity.GetUserId();
+                
+                var userId = User.Identity.GetUserId();
+            
+                
+                    var user = db.Users.FirstOrDefault(u => u.Id == userId);
+                    profile.Email = user.Email;
+                
                 db.Profiles.Add(profile);
                 db.SaveChanges();
+
+                Friend friend = new Friend();
+                friend.UserId = profile.UserId;
+                db.Friends.Add(friend);
+                db.SaveChanges();
+
                 return Redirect("/Profiles/Show/" + profile.ProfileId);
             }
 

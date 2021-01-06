@@ -10,9 +10,8 @@
 <h3>@ViewBag.createGroup</h3>
 <h3>@ViewBag.editGroup</h3>
 
-
-@using (Html.BeginForm(actionName: "New", controllerName: "Posts"))
-{
+ 
+<form method="post" action="/Posts/NewToGroup/@ViewBag.groupId">
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
     @Html.Label("Content", "Post text")
@@ -23,7 +22,7 @@
     <br />
 
     <button class="btn btn-sm btn-success" type="submit">Share post</button>
-}
+</form>
 
 
 @foreach (var post in ViewBag.Posts)
@@ -34,7 +33,7 @@
             My post from @post.Date.ToString("dd/MM/yyyy") at @post.Date.ToString("HH:mm")
         </div>
         <div class="panel-body">
-            <strong>post.Content</strong>
+            <strong>@post.Content</strong>
             <hr>
             Likes: <strong>@post.Likes</strong>
         </div>

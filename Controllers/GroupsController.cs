@@ -73,6 +73,7 @@ namespace Reaction.Controllers
 
             bool show = false;
             Group group = db.Groups.Find(id);
+            ViewBag.groupId = group.GroupId;
             if (group.Visibility.Equals(Group.VisibleGroup.Public))
             {
                 show = true;
@@ -190,6 +191,7 @@ namespace Reaction.Controllers
                     db.Groups.Add(group);
                     db.SaveChanges();
                     TempData["CreateGroup"] = "The group was succesfully created!";
+                    
                     return RedirectToAction("Index");
                 }
                 else

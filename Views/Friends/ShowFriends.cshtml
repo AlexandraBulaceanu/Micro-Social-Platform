@@ -4,11 +4,18 @@
 
 <h2>ShowFriends</h2>
 
+
 @foreach (var profile in ViewBag.friends)
 {
-    <h2>@profile.Username</h2>
+    if (profile != null && !string.IsNullOrEmpty(profile.Username))
+    {
+        <h3>  @profile.Username </h3>
+    }
     <br />
-    <h2>@profile.Description</h2>
+    if (profile != null && !string.IsNullOrEmpty(profile.Description))
+    {
+        <h3>  @profile.Description </h3>
+    }
     <br />
     <br />
 }

@@ -17,22 +17,7 @@
         <a class="btn btn-primary" href="/Posts/New">New post</a>
         <br />
 
-        @foreach (Reaction.Models.Post post in ViewBag.Posts)
-        {
-            <div class="panel panel-default">
-                @Html.Partial("PostInfo", post)
-                <div class="panel-footer">
-                    @foreach (Reaction.Models.Comment comm in ViewBag.Comments)
-                    {
-                        @Html.Partial("CommentInfo", comm)
-                    }
-                    <div class="form-row">
-                        <div class="form-group mt-4 mb-0"><a class="btn btn-danger btn-block" href="/Posts/Show">Delete</a></div>
-                        <div class="form-group mt-4 mb-0"><a class="btn btn-secondary btn-block" href="/Posts/Edit">Edit</a></div>
-                    </div>
-                </div>
-            </div>
-        }
+        
 
     </div>
 </body>

@@ -23,6 +23,8 @@ namespace Reaction.Models
         [Required]
         public string Username { get; set; }
 
+        public string Email { get; set; }
+
         [Required]
         public Visible Visibility { get; set; }
 

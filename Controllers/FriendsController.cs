@@ -54,13 +54,19 @@ namespace Reaction.Controllers
                 if (userProfile.Friends.Contains(friend))
                     friendsList.Add(db.Profiles.Find(friend.FriendId));
             }
-            ViewBag.friends = friendsList;
-            return View();
+            if (friendsList.Count > 0)
+            {
+                ViewBag.friends = friendsList;
+                return View();
+            }
+            else {
+                return View("NoFriend");
+            }
         }
 
 
         [Authorize(Roles = "Admin,User")]
-        [HttpPost]
+       // [HttpPost]
         public ActionResult AcceptRequest(int id)
         {
             string userId = User.Identity.GetUserId();
@@ -141,7 +147,7 @@ namespace Reaction.Controllers
 
 
         [Authorize(Roles = "Admin,User")]
-        [HttpPost]
+        [HttpDelete]
         public ActionResult DeleteFriendRequest(int id)
         {
 
@@ -175,7 +181,7 @@ namespace Reaction.Controllers
             {
                 return View("Error");
             }
-            return RedirectToAction("ShowFriendRequest", "Friends");
+            return RedirectToAction("ShowFriends", "Friends");
         }
 
 

@@ -13,6 +13,8 @@ namespace Reaction.Controllers
         private Reaction.Models.ApplicationDbContext db = new Reaction.Models.ApplicationDbContext();
         public ActionResult Index()
         {
+            if (TempData.ContainsKey("NotFound"))
+                ViewBag.failedSearch = TempData["NotFound"].ToString();
             return View();
         }
 
@@ -41,7 +43,11 @@ namespace Reaction.Controllers
                 if (p.Username == Username)
                 { result = p;  break; }
             }
-            if (result == null) return View();
+            if (result == null) 
+            { 
+               TempData["NotFound"] = "There is no such user!"; 
+               ViewBag.failedSearch = "There is no such user!";
+                return View("NoUser"); }
             return Redirect("/Profiles/Show/"+result.ProfileId);
         }
     }

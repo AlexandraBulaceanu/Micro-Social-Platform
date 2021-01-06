@@ -3,6 +3,9 @@ using Reaction.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -11,6 +14,39 @@ namespace Reaction.Controllers
     public class PostsController : Controller
     {
         private Reaction.Models.ApplicationDbContext db = new Reaction.Models.ApplicationDbContext();
+
+        private void SendEmailNotification(string toEmail, string subject, string content)
+        {
+            const string senderEmail = "alexandra-irina.bulaceanu@my.fmi.unibuc.ro";
+            const string senderPassword = "parola";
+            const string smtpServer = "smtp.gmail.com";
+            const int smtpPort = 587;
+
+            SmtpClient smtpClient = new SmtpClient(smtpServer, smtpPort);
+            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+            smtpClient.EnableSsl = true;
+            smtpClient.UseDefaultCredentials = false;
+            smtpClient.Credentials = new NetworkCredential(senderEmail, senderPassword);
+
+            MailMessage email = new MailMessage(senderEmail, toEmail, subject, content);
+
+            email.IsBodyHtml = true;
+
+            email.BodyEncoding = UTF8Encoding.UTF8;
+
+            try
+            {
+                System.Diagnostics.Debug.WriteLine("Sendin email...");
+                smtpClient.Send(email);
+                System.Diagnostics.Debug.WriteLine("Email sent!");
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("Error occured while trying to send email");
+                System.Diagnostics.Debug.WriteLine(e.Message.ToString());
+                RedirectToAction("Index", "Home");
+            }
+        }
 
         // GET: Post
 
@@ -78,6 +114,49 @@ namespace Reaction.Controllers
           //  }
         }
 
+
+      
+
+        [Authorize(Roles = "Admin,User")]
+        public ActionResult NewToGroup(int id)
+        {
+            Post post = new Post();
+            ViewBag.groupId = id;
+
+            return View(post);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin,User")]
+        public ActionResult NewToGroup(int id, Post post)
+        {
+            // try
+            // {
+            if (ModelState.IsValid)
+            {
+                post.UserId = User.Identity.GetUserId();
+                post.Date = DateTime.Now;
+                post.Likes = 0;
+                post.GroupId = id;
+                //post.Comments = new List<Comment>(); ///Newly added
+                db.Posts.Add(post);
+                db.SaveChanges();
+                TempData["NewPost"] = "The post has been added!";
+                return RedirectToAction("Show/"+id.ToString(),"Groups");
+            }
+            else
+            {
+                TempData["NewPost"] = "Error";
+                return RedirectToAction("Index");
+            }
+            // }
+            //  catch (Exception e)
+            //  {
+            //      TempData["NewPost"] = e.Message.ToString();
+            //     return RedirectToAction("Index");
+            //  }
+        }
+
         public ActionResult Show(int id)
         {
 
@@ -114,6 +193,15 @@ namespace Reaction.Controllers
                     TempData["Permission"] = "Not enough permissions";
                     return RedirectToAction("Index", "Posts");
                 }
+
+                if (User.IsInRole("Admin"))
+                {
+                    string authorEmail = db.Profiles.Where(p => p.UserId == post.UserId).ToList().First().Email;
+                    string notificationBody = "<p>The admin considered one of your posts innapropiate and modified it!</p>";
+
+                    SendEmailNotification(authorEmail, "A post was modified", notificationBody);
+                }
+
 
                 if (TryUpdateModel(post))
                 {
