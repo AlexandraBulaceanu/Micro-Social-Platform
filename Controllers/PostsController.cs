@@ -51,14 +51,15 @@ namespace Reaction.Controllers
         [Authorize(Roles="Admin,User")]
         public ActionResult New(Post post)
         {
-            try
-            {
+           // try
+           // {
                 if (ModelState.IsValid)
                 {
                     post.UserId = User.Identity.GetUserId();
                     post.Date = DateTime.Now;
                     post.Likes = 0;
-                    post.Comments = new List<Comment>(); ///Newly added
+                    post.GroupId = 1;
+                    //post.Comments = new List<Comment>(); ///Newly added
                     db.Posts.Add(post);
                     db.SaveChanges();
                     TempData["NewPost"] = "The post has been added!";
@@ -66,13 +67,15 @@ namespace Reaction.Controllers
                 }
                 else
                 {
-                    return View(post);
+                    TempData["NewPost"] = "Error";
+                    return RedirectToAction("Index");
                 }
-            }
-            catch (Exception e)
-            {
-                return View(post);
-            }
+           // }
+          //  catch (Exception e)
+          //  {
+          //      TempData["NewPost"] = e.Message.ToString();
+           //     return RedirectToAction("Index");
+          //  }
         }
 
         public ActionResult Show(int id)

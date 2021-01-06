@@ -60,6 +60,7 @@ namespace Reaction.Controllers
 
 
         [Authorize(Roles = "Admin,User")]
+        [HttpPost]
         public ActionResult AcceptRequest(int id)
         {
             string userId = User.Identity.GetUserId();
@@ -140,6 +141,7 @@ namespace Reaction.Controllers
 
 
         [Authorize(Roles = "Admin,User")]
+        [HttpPost]
         public ActionResult DeleteFriendRequest(int id)
         {
 
@@ -221,6 +223,7 @@ namespace Reaction.Controllers
 
 
         [Authorize(Roles = ("Admin, User"))]
+        [HttpPost]
         public ActionResult FriendRequest(int id)
         {
 

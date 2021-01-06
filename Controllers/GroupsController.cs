@@ -200,6 +200,7 @@ namespace Reaction.Controllers
                 return View("Error");
             }
         }
+
         [Authorize(Roles = "Admin,User")]
         public ActionResult Edit(int id)
         {
@@ -207,7 +208,7 @@ namespace Reaction.Controllers
             if (group == null)
                 return RedirectToAction("Index");
             ViewBag.group = group;
-            return View();
+            return View(group);
         }
 
         [HttpPut]
@@ -238,17 +239,19 @@ namespace Reaction.Controllers
         [Authorize(Roles = "Admin,User")]
         public ActionResult Delete(int id)
         {
+            
             try
             {
-                if (id == 1)
-                    return RedirectToAction("Index");
+               // if (id == 1)
+                //    return RedirectToAction("Index");
 
                 Group group = db.Groups.Find(id);
                 db.Groups.Remove(group);
                 db.SaveChanges();
                 TempData["DeleteGroup"] = "Group " + group.Name + "is not available anymore";
+                return RedirectToAction("Index","Groups");
 
-                return RedirectToAction("DeletePosts/" + id.ToString(), "Posts");
+                //return RedirectToAction("DeletePosts/" + id.ToString(), "Posts");
             }
             catch (Exception e)
             {

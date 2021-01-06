@@ -1,10 +1,12 @@
-﻿@{
+﻿@model Reaction.Models.Group
+
+@{
     ViewBag.Title = "Edit";
 }
 
 <h2>Edit group</h2>
 
-<form method="post" action="/Groups/Edit/@ViewBag.group.GroupId">
+<form method="post" action="/Groups/Edit/@Model.GroupId">
     @Html.HttpMethodOverride(HttpVerbs.Put)
 
     @Html.Label("Name", "Change the name")

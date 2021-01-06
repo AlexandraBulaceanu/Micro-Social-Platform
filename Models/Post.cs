@@ -21,12 +21,12 @@ namespace Reaction.Models
 
         //public int ProfileId { get; set; }
 
-       // public virtual Profile Profile { get; set; }
+        //public virtual Profile Profile { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
 
         public int GroupId { get; set; }
-        public virtual Group Group { get; set; }
+        //public virtual Group Group { get; set; }
 
         public string UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
