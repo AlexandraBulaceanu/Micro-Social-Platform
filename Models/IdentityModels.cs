@@ -23,9 +23,7 @@ namespace Reaction.Models
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext,
-                        Reaction.Migrations.Configuration>("DefaultConnection"));
-
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Reaction.Migrations.Configuration>("DefaultConnection"));
         }
 
         public DbSet<Comment> Comments { get; set; }

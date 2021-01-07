@@ -11,27 +11,21 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
                 @Html.ActionLink("Reaction", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Posts", "Index", "Posts")</li>
-                    <li>
-                        <form method="post" action="/Home/findUsers">
-                            <input type="text" name="Username" placeholder="Search user here" />
-                            <button type="submit">Search</button>
-                        </form>
-                    </li>
-
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Requests", "FriendRequest", "Friends")</li>
                     <li>@Html.ActionLink("Friends", "ShowFriends", "Friends")</li>
+                    <li style="margin-top: 10px">
+                        <form method="post" action="/Home/findUsers">
+                            <input class="input-sm" type="text" name="Username" placeholder="Search user here" />
+                            <button class ="btn-sm btn-primary" type="submit">Search</button>
+                        </form>
+                    </li>
                     <li>@Html.ActionLink("Groups", "Index", "Groups")</li>
                     <li><a href="/Profiles/Show/@ViewBag.ProfileId">Profile</a> </li>
                 </ul>
@@ -40,11 +34,7 @@
         </div>
     </div>
     <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Reaction</p>
-        </footer>
+            @RenderBody()
     </div>
 
     @Scripts.Render("~/bundles/jquery")

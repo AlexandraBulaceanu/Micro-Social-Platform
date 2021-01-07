@@ -1,31 +1,64 @@
 ﻿@model Reaction.Models.Profile
 
-<h2>Add profile</h2>
+<!DOCTYPE html>
 
-@using (Html.BeginForm(actionName: "New", controllerName: "Profiles"))
-{
-    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body class="container">
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="row img-rounded bg-info" style="padding: 0; padding: 30px">
+            <h2 style="font-size: xx-large; margin-bottom: 30px">Add profile</h2>
+            @using (Html.BeginForm(actionName: "New", controllerName: "Profiles"))
+            {
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
-    @Html.Label("Username", "Username")
-    <br />
-    @Html.TextArea("Username", null, new { @class = "form-control" })
-    @Html.ValidationMessage("Username", null, new { @class = "text-danger" })
-    <br />
-    @Html.Label("Description", "Description")
-    <br />
-    @Html.TextArea("Description", null, new { @class = "form-control" })
-    @Html.ValidationMessage("Description", null, new { @class = "text-danger" })
-    <br />
-    @Html.Label("Visibility","Visibility")
-    @Html.Editor("Visibility")
-    //<label>Select profile visibility</label>
-    /*
-    @Html.DropDownListFor(m => m.Visibility, new SelectList(Model.VisibleItems, "Value", "Text"),
-    "Select profile visibility", new { @class = "form-control" })
-    @Html.ValidationMessageFor(m => m.Visibility, "", new { @class = "text-danger" })
-    */
-    <br />
+                @Html.Label("Username", "Username")
+                <br />
+                <div class="">
+                    @Html.TextBox("Username", null, new { @class = "form-control" })
+                    @Html.ValidationMessage("Username", null, new { @class = "text-danger" })
+                </div>
+                <br />
+                @Html.Label("Description", "Description")
+                <br />
+                @Html.TextArea("Description", null, new { @class = "form-control" })
+                @Html.ValidationMessage("Description", null, new { @class = "text-danger" })
+                <br />
+                <div style="margin-right: 10px;">
+                    @Html.Label("Visibility", "Visibility")
+                </div>
 
-    <button class="btn btn-sm btn-success" type="submit">Create</button>
+                <div class="radio-inline" style="margin-bottom : 10px;">
+                    <div style="margin-right: 10px;">
+                        @Html.RadioButton("Visibility", "Private")
+                        @Html.Label("Private", "Private")
+                    </div>
+                    <div style="margin-right: 10px;">
+                        @Html.RadioButton("Visibility", "Public")
+                        @Html.Label("Public", "Public")
+                    </div>
+                </div>
 
-}
+
+                //<label>Select profile visibility</label>
+                /*
+                @Html.DropDownListFor(m => m.Visibility, new SelectList(Model.VisibleItems, "Value", "Text"),
+                "Select profile visibility", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Visibility, "", new { @class = "text-danger" })
+                */
+                <br />
+
+                <button class="btn btn-sm btn-primary col-lg-1" type="submit">Create</button>
+
+            }
+        </div>
+</body>
+</html>

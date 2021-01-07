@@ -56,11 +56,11 @@ namespace Reaction.Controllers
                 if (p.Username == Username)
                 { result = p;  break; }
             }
+                return View("NoUser"); }
             if (result == null) 
             { 
                TempData["NotFound"] = "There is no such user!"; 
                ViewBag.failedSearch = "There is no such user!";
-                return View("NoUser"); }
             return Redirect("/Profiles/Show/"+result.ProfileId);
         }
     }

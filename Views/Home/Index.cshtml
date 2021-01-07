@@ -1,15 +1,13 @@
 ﻿@{ ViewBag.Title = "Home Page";
-                ViewBag.color = "black"; }
+   ViewBag.color = "black"; }
 
-<div class="jumbotron container">
-    <div>
-        <div class="col-lg-6">
-            <br />
-            <br />
-            <h1 class="row">Reaction</h1>
-            <p class="row lead">A new type of a social platform.</p>
-        </div>
-        <div class="col-lg-1">
+<br />
+<br />
+<br />
+
+<div class="bg-info container img-rounded" style="padding: 60px">
+    <div class="row" style="display: flex; justify-content: center; justify-items: center; justify-self: center">
+        <div class="col-lg-6" style="display: flex; justify-content: center; margin-bottom: 20px">
             <svg width="257" height="256" viewBox="0 0 257 256" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M256.747 224.156L139.591 224.156L45.5539 128.091L139.591 32.027L256.747 32.027L256.747 0.182617L130.06 0.182612C124.041 0.182611 118.356 2.41174 114.614 6.22246L4.99465 118.209C2.1654 121.107 0.747649 124.599 0.747649 128.091C0.747649
                   131.584 2.16539 135.076 4.99465 137.963L114.614 249.954C118.356 253.776 124.04 255.999 130.06 255.999L256.747 255.999L256.747 224.156Z" fill=@ViewBag.color />
@@ -20,29 +18,26 @@
             </svg>
         </div>
     </div>
-</div>
-
-<h1>@ViewBag.ProfileId</h1>
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-4">
-            <h2>Time is everything</h2>
-            <p>
-                Every user has a time-wallet. More or less, every action on this platform will cost time. The more you stay, the more it will cost to make any operation.
-                Your wallet is recharged by receiving likes, comments, playing games, or watching ads.
-            </p>
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-md-4">
+                <h2 class="text-primary">Time is everything</h2>
+                <p>
+                    Every user has a time-wallet. More or less, every action on this platform will cost time. The more you stay, the more it will cost to make any operation.
+                    Your wallet is recharged by receiving likes, comments, playing games, or watching ads.
+                </p>
+            </div>
+            <div class="col-md-4">
+                <h2 class="text-primary">Statistics</h2>
+                <p>
+                    The user accesses this section to know how much time has he spend on what.
+                    Also, you can see the heatmap of the posts, so you know what people want to see on the profile.
+                </p>
+            </div>
+            <div class="col-md-4">
+                <h2 class="text-primary">Hashtag bio</h2>
+                <p>Creating a bio of hashtags to create better matching between users. This makes more likely that two strangers become frineds.</p>
+            </div>
         </div>
-        <div class="col-md-4">
-            <h2>Statistics</h2>
-            <p>
-                The user accesses this section to know how much time has he spend on what.
-                Also, you can see the heatmap of the posts, so you know what people want to see on the profile.
-            </p>
-        </div>
-        <div class="col-md-4">
-            <h2>Hashtag bio</h2>
-            <p>Creating a bio of hashtags to create better matching between users. This makes more likely that two strangers become frineds.</p>
-        </div>
-    </div>
 </div>

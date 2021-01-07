@@ -1,24 +1,24 @@
-﻿namespace Reaction.Migrations
+namespace Reaction.Migrations
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Reaction.Models.AppContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<Reaction.Models.ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
             AutomaticMigrationDataLossAllowed = true;
-            ContextKey = "Reaction.Models.AppContext";
+            ContextKey = "Reaction.ApplicationDbContext";
         }
 
-        protected override void Seed(Reaction.Models.AppContext context)
+        protected override void Seed(Reaction.Models.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
         }
     }
