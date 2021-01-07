@@ -15,14 +15,20 @@
         <h1>@Model.Visibility</h1>
 
         <form method="post" action="/Friends/FriendRequest/@Model.ProfileId">
-            
             <button type="submit">Send Friend Request</button>
         </form>
 
-        @foreach (var post in Model.Posts)
+        @if (Model.Visibility == Reaction.Models.Profile.Visible.Public || Model.UserId == ViewBag.UserId)
         {
-            <h1>Prost</h1>
-            @Html.Partial("PostInfo", post)
+            foreach (var post in Model.Posts)
+            {
+                <h1>Prost</h1>
+                @Html.Partial("PostInfo", post)
+            }
+        }
+        else
+        {
+            <h1>This profile is private</h1>
         }
     </div>
 </body>

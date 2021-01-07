@@ -41,8 +41,14 @@ namespace Reaction.Controllers
                 if (p.Username == Username)
                 { result = p;  break; }
             }
-            if (result == null) return View();
-            return Redirect("/Profiles/Show/"+result.ProfileId);
+
+            if (result == null) 
+            {
+                ViewBag.inform = "There was no user found with this username";
+                return View(); 
+            }
+            else
+                return Redirect("/Profiles/Show/" + result.ProfileId);
         }
     }
 }
