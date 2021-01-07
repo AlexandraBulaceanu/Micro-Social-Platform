@@ -1,20 +1,24 @@
-﻿<div class="panel panel-default">
+﻿<div class="panel panel-default" style="margin: 0">
     <div class="panel-heading">
-        My post from @Model.Date.ToString("dd/MM/yyyy") at @Model.Date.ToString("HH:mm")
+        My post from
+        <span class="text-primary">@Model.Date.ToString("dd/MM/yyyy")</span>
+        at
+        <span class="text-primary">@Model.Date.ToString("HH:mm")</span>
+        with
+        <span class="text-primary">@Model.Likes</span>
+        likes
     </div>
     <div class="panel-body">
         <strong>@Model.Content</strong>
-        <hr>
-        Likes: <strong>@Model.Likes</strong>
+        <div style="margin-top: 10px;">
+            <a class="btn-sm btn-primary" href="/Comments/New/@Model.PostId">New comment</a>
+            <a class="btn-sm btn-primary" href="/Posts/Show/@Model.PostId">Show more</a>
+            <a class="btn-sm btn-primary">
+                <span class="glyphicon glyphicon-star" aria-hidden="true" href="Posts/UpdateLikes/@Model.PostId"></span>
+            </a>
+        </div>
     </div>
-    <div class="panel-footer">
-
-        <a class="btn-sm btn-primary" href="/Comments/New/@Model.PostId">Add a new comment</a>
-
-        <a class="btn-sm btn-primary" href="/Posts/Show/@Model.PostId">Show post and comments</a>
-        <a class="btn-sm btn-primary">
-            <span class="glyphicon glyphicon-star" aria-hidden="true" href="Posts/UpdateLikes/@Model.PostId"></span>
-        </a>
-    </div>
-  
 </div>
+<br />
+<br />
+<br />

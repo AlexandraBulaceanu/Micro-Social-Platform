@@ -7,30 +7,54 @@
     <meta name="viewport" content="width=device-width" />
     <title></title>
 </head>
-<body>
-    <div>
+<body class="container">
+    <br />
+    <br />
+    <br />
+    <div class="row" style="display: flex; justify-content: start;">
+        <h1 style="margin: 0">
+            Hello, my name is
+            <span class="text-primary">@Model.Username</span>!
+        </h1>
+    </div>
 
-        <h1>@Model.Username</h1>
-        <h1>@Model.Description</h1>
-        <h1>@Model.Visibility</h1>
+    <div class="row" style="display:inline-flex;">
+        <h3 class="text-muted" style="margin-right: 10px">
+            So here is what I have to say:
+            <span class="text-primary">@Model.Description</span>
+        </h3>
+        <h3 class="text-muted">And btw, my account is @Model.Visibility</h3>
+    </div>
+    
+    <div class="row">
+        @if (Model.UserId == ViewBag.UserId)
+        {
+            <a class="col-lg-1 btn-sm btn-primary text-center" href="/Posts/New/@ViewBag.ProfileId" style="margin-right: 10px">New post</a>
+            <a class="col-lg-1 btn-sm btn-primary text-center" href="/Profiles/Edit/@ViewBag.ProfileId">Edit profile</a>
+        }
+    </div>
 
-        @if (Model.UserId != ViewBag.UserId)
-        { <form method="post" action="/Friends/FriendRequest/@Model.ProfileId">
-            
-            <button type="submit">Send Friend Request</button>
-        </form> }
+    <br />
+    <br />
+
+    <div class="row">
 
         @if (Model.Visibility == Reaction.Models.Profile.Visible.Public || Model.UserId == ViewBag.UserId)
         {
-            foreach (var post in Model.Posts)
+            foreach (Reaction.Models.Post post in Model.Posts)
             {
-                <h1>Prost</h1>
                 @Html.Partial("PostInfo", post)
             }
         }
         else
         {
-            <h1>This profile is private</h1>
+            <h1>Do you see? It's private</h1>
+            if(Model.UserId != ViewBag.UserId)
+            {
+                <form method="post" action="/Friends/FriendRequest/@Model.ProfileId">
+                    <button class="btn btn-primary" type="submit">Send Friend Request</button>
+                </form>
+            }
         }
     </div>
 </body>

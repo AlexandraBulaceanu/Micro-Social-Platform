@@ -15,7 +15,6 @@ namespace Reaction.Controllers
         // GET: Profiles
         public ActionResult Index()
         {
-            
             return View();
         }
 
@@ -72,6 +71,7 @@ namespace Reaction.Controllers
             ViewBag.isAdmin = User.IsInRole("Admin");
             Profile profile = db.Profiles.Find(id);
             ViewBag.UserId = User.Identity.GetUserId();
+            ViewBag.ProfileId = id;
             return View(profile);
         }
 

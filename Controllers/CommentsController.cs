@@ -62,7 +62,7 @@ namespace Reaction.Controllers
                 db.Comments.Add(comm);
                 db.SaveChanges();
                 TempData["New"] = "The comment was added";
-                return Redirect("/Posts/Index/" + comm.PostId);
+                return Redirect("/Posts/Show/" + comm.PostId);
             }
 
             catch (Exception e)
@@ -104,7 +104,7 @@ namespace Reaction.Controllers
                     db.SaveChanges();
                     TempData["New"] = "The comment was edited";
                 }
-                return Redirect("/Posts/Index/" + comm.PostId);
+                return Redirect("/Posts/Show/" + comm.PostId);
             }
             catch (Exception e)
             {
@@ -127,7 +127,7 @@ namespace Reaction.Controllers
                 db.Comments.Remove(comm);
                 db.SaveChanges();
                 TempData["Delete"] = "The comment was deleted";
-                return Redirect("/Posts/Index/" + comm.PostId);
+                return Redirect("/Posts/Show/" + comm.PostId);
             } catch(Exception e) {
                 return View();
             }

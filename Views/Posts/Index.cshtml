@@ -37,13 +37,14 @@
  
     <div>
         <h2 class="col-md-push-0 row" style="margin-bottom: 20px">My posts</h2>
-        
+        <a class="btn btn-primary" href="/Posts/New/@ViewBag.ProfileId">New post</a>
 
         <div class="row">
             @foreach (Reaction.Models.Post post in ViewBag.Posts)
             {
                 if (post.UserId == ViewBag.UserId)
-                { @Html.Partial("PostInfo", post)  }          }
+                {@Html.Partial("PostInfo", post)}
+        }
         </div>
     </div>
 </body>

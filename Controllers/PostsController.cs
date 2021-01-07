@@ -52,13 +52,9 @@ namespace Reaction.Controllers
 
         public ActionResult Index()
         {
-
-
             ViewBag.Posts = from post in db.Posts
                              orderby post.Date
                              select post;
-
-
 
             if (TempData.ContainsKey("Permission"))
                 ViewBag.Permission = TempData["Permission"].ToString();
@@ -92,6 +88,7 @@ namespace Reaction.Controllers
            // {
                 if (ModelState.IsValid)
                 {
+
                     post.UserId = User.Identity.GetUserId();
                     post.Date = DateTime.Now;
                     post.Likes = 0;
@@ -100,7 +97,8 @@ namespace Reaction.Controllers
                     db.Posts.Add(post);
                     db.SaveChanges();
                     TempData["NewPost"] = "The post has been added!";
-                    return RedirectToAction("Index");
+                    
+                    return Redirect("/Profiles/Show/" + post.ProfileId);
                 }
                 else
                 {
@@ -139,6 +137,22 @@ namespace Reaction.Controllers
                 post.Date = DateTime.Now;
                 post.Likes = 0;
                 post.GroupId = id;
+
+
+                String userId = User.Identity.GetUserId();
+                Profile profile = new Profile();
+                var profiles = from p in db.Profiles
+                               where p.UserId == userId
+                               select p;
+                foreach (var elem in profiles)
+                {
+                    profile = elem;
+                    break;
+                }
+                post.ProfileId = profile.ProfileId;
+
+                ///ViewBag.UserId = post.UserId;
+
                 //post.Comments = new List<Comment>(); ///Newly added
                 db.Posts.Add(post);
                 db.SaveChanges();
@@ -210,7 +224,7 @@ namespace Reaction.Controllers
                     post.Date = DateTime.Now;
                     db.SaveChanges();
                     TempData["EditPost"] = "The post was modified!";
-                    return RedirectToAction("Index");
+                    return Redirect("/Profiles/Show/" + post.ProfileId);
                 }
 
                 return View(requestPost);
@@ -256,7 +270,7 @@ namespace Reaction.Controllers
                 db.Posts.Remove(post);
                 db.SaveChanges();
                 TempData["deletePost"] = "The post was deleted!";
-                return RedirectToAction("Index");
+                return Redirect("/Profiles/Show/" + post.ProfileId);
             } catch (Exception e) {
                 return View();
             }

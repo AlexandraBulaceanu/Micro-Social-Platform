@@ -4,48 +4,56 @@
     ViewBag.Title = "Show posts";
 }
 
-<h2>Show posts</h2>
+<body class="container">
+    <br />
+    <br />
+    <br />
 
-
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        My post from @Model.Date.ToString("dd/MM/yyyy") at @Model.Date.ToString("HH:mm")
-    </div>
-    <div class="panel-body">
-        <strong>@Model.Content</strong>
-        <hr>
-        Likes: <strong>@Model.Likes</strong>
-    </div>
-    <div class="panel-footer row">
-
-        <a class="btn-sm btn-primary col-lg-1" href="/Comments/New/@Model.PostId">Add comment</a>
-        <div>
-            @if (ViewBag.UserId == Model.UserId || ViewBag.IsAdmin == true)
-            {
-                <form action="/Posts/Edit/@Model.PostId">
-                    @Html.HttpMethodOverride(HttpVerbs.Put)
-                    <button class="btn-sm btn-primary col-lg-1" type="submit">Edit Post</button>
-                </form>
-                <form method="post" action="/Posts/Delete/@Model.PostId">
-                    @Html.HttpMethodOverride(HttpVerbs.Delete)
-                    <button class="btn-sm btn-primary col-lg-1" type="submit">Delete Post</button>
-                </form>
-            }
+    <div class="panel panel-default row" style="margin-bottom: 0">
+        <div class="panel-heading">
+            My post from
+            <span class="text-primary">@Model.Date.ToString("dd/MM/yyyy")</span>
+            at
+            <span class="text-primary">@Model.Date.ToString("HH:mm")</span>
+            with
+            <span class="text-primary">@Model.Likes</span>
+            likes
         </div>
-        <a class="btn-sm btn-primary col-lg-1">
-            <span class="glyphicon glyphicon-star" aria-hidden="true" href="Posts/UpdateLikes/@Model.PostId"></span>
-        </a>
+        <div class="panel-body">
+            <h3 style="margin: 0">@Model.Content</h3>
+        </div>
     </div>
 
+    <div class ="row" style="margin-top: 10px; display:flex">
 
+        <button class="btn btn-primary" href="/Comments/New/@Model.PostId" type="submit" style="margin-right: 5px; border-width: 0; font-size:small">Add comment</button>
 
-</div>
+        @if (ViewBag.UserId == Model.UserId || ViewBag.IsAdmin == true)
+        {
+            ///nu merge butonul
+            <form action="/Posts/Edit/@Model.PostId">
+                @Html.HttpMethodOverride(HttpVerbs.Put)
+                <button class="btn btn-primary" type="submit" style="margin-right: 5px; border-width: 0; font-size:small">Edit Post</button>
+            </form>
 
-@foreach (var comm in Model.Comments)
-{
-    @Html.Partial("CommentInfo", comm)
+            <form method="post" action="/Posts/Delete/@Model.PostId">
+                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                <button class="btn btn-danger" type="submit" style="margin-right: 5px; border-width: 0; font-size:small">Delete Post</button>
+            </form>
+        }
 
-}
+        <button class="btn-sm btn-primary" style="border-width: 0; font-size: small">
+            <span class="glyphicon glyphicon-star" aria-hidden="true" href="Posts/UpdateLikes/@Model.PostId"></span>
+        </button>
+    </div>
+    <br />
+    <br />
+    <br />
 
+    @foreach (var comm in Model.Comments)
+    {
+        @Html.Partial("CommentInfo", comm)
 
+    }
+
+</body>

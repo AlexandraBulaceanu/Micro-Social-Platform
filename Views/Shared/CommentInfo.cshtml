@@ -1,27 +1,34 @@
-﻿<div class="panel panel-default">
-    <div class="panel-heading">
-        Username
+﻿<div class="row">
+    <div class="panel panel-default" style="margin: 0">
+        <div class="panel-heading">
+            <div style="display: inline-flex;">
+                Posted at
+                <span style="margin-right: 5px; margin-left:5px">@Model.Date</span>
+                with
+                <span style="margin-right: 5px; margin-left:5px"> @Model.Likes</span> likes
+            </div>
+        </div>
+        <div class="panel-body bg-info">
+            <p class="text-muted">
+                @Model.Content
+            </p>
+        </div>
     </div>
-    <div class="panel-body">
-        <h3 class="form-row">
-            @Model.Content
-        </h3>
-        <hr>
-    </div>
-    <div class="panel-footer">
-        <div class="col-lg-2">@Model.Date</div>
-        <div class="col-lg-2">@Model.Likes</div>
+
+    <div style="display: flex; margin-top: 10px">
 
         @if (ViewBag.UserId == Model.UserId || ViewBag.IsAdmin == true)
         {
-    <form action="/Comments/Edit/@Model.CommentId">
-        <button class="btn btn-secondary btn-block col-lg-1" type="submit">Edit Comment</button>
-    </form>
-    <form method="post" action="/Comments/Delete/@Model.CommentId">
-                        @Html.HttpMethodOverride(HttpVerbs.Delete)
-                        <button class="btn btn-danger btn-block col-lg-1" type="submit">Delete Comment</button>
-    </form>}
-
-
+            <form action="/Comments/Edit/@Model.CommentId">
+                <button class="btn btn-primary" type="submit" style="margin-right: 5px; border-width: 0; font-size:small">Edit Comment</button>
+            </form>
+            <form method="post" action="/Comments/Delete/@Model.CommentId">
+                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                <button class="btn btn-danger" type="submit" style="margin-right: 5px; border-width: 0; font-size:small">Delete Comment</button>
+            </form>
+        }
     </div>
+
 </div>
+<br />
+<br />

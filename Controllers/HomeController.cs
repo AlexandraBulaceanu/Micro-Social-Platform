@@ -16,6 +16,7 @@ namespace Reaction.Controllers
         {
             if (TempData.ContainsKey("NotFound"))
                 ViewBag.failedSearch = TempData["NotFound"].ToString();
+            
             String userId = User.Identity.GetUserId();
             Profile profile = new Profile();
             var profiles = from p in db.Profiles
@@ -27,7 +28,6 @@ namespace Reaction.Controllers
                 break;
             }
             ViewBag.ProfileId = profile.ProfileId;
-
             return View();
         }
 
@@ -45,22 +45,24 @@ namespace Reaction.Controllers
             return View();
         }
 
-      
+
         [HttpPost]
         public ActionResult findUsers(string Username)
         {
             Profile result = null;
             var profiles = from prof in db.Profiles
-                          select prof;
+                           select prof;
             foreach (var p in profiles) {
                 if (p.Username == Username)
-                { result = p;  break; }
+                { result = p; break; }
             }
-                return View("NoUser"); }
+
             if (result == null) 
             { 
                TempData["NotFound"] = "There is no such user!"; 
                ViewBag.failedSearch = "There is no such user!";
+               return View("NoUser");
+            }
             return Redirect("/Profiles/Show/"+result.ProfileId);
         }
     }

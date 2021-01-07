@@ -16,18 +16,16 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Posts", "Index", "Posts")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Requests", "FriendRequest", "Friends")</li>
                     <li>@Html.ActionLink("Friends", "ShowFriends", "Friends")</li>
+                    <li>@Html.ActionLink("Groups", "Index", "Groups")</li>
+                    <li><a href="/Profiles/Show/@ViewBag.ProfileId">Profile</a> </li>
                     <li style="margin-top: 10px">
                         <form method="post" action="/Home/findUsers">
                             <input class="input-sm" type="text" name="Username" placeholder="Search user here" />
-                            <button class ="btn-sm btn-primary" type="submit">Search</button>
+                            <button class="btn-sm btn-primary" type="submit">Search</button>
                         </form>
                     </li>
-                    <li>@Html.ActionLink("Groups", "Index", "Groups")</li>
-                    <li><a href="/Profiles/Show/@ViewBag.ProfileId">Profile</a> </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
