@@ -15,6 +15,7 @@ namespace Reaction.Controllers
         // GET: Profiles
         public ActionResult Index()
         {
+            
             return View();
         }
 

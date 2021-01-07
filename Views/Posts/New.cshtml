@@ -4,6 +4,8 @@
 
 @using (Html.BeginForm(actionName: "New", controllerName: "Posts"))
 {
+    <input type="hidden" name="ProfileId" value="@ViewBag.ProfileId" />
+
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
     @Html.Label("Content", "Post text")

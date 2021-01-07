@@ -76,9 +76,10 @@ namespace Reaction.Controllers
         }
 
         [Authorize(Roles ="Admin,User")]
-        public ActionResult New()
+        public ActionResult New(int id)
         {
             Post post = new Post();
+            ViewBag.ProfileId = id;
 
             return View(post);
         }

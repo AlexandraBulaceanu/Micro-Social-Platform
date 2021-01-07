@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace Reaction.Controllers
 {
@@ -15,6 +16,18 @@ namespace Reaction.Controllers
         {
             if (TempData.ContainsKey("NotFound"))
                 ViewBag.failedSearch = TempData["NotFound"].ToString();
+            String userId = User.Identity.GetUserId();
+            Profile profile = new Profile();
+            var profiles = from p in db.Profiles
+                           where p.UserId == userId
+                           select p;
+            foreach (var elem in profiles)
+            {
+                profile = elem;
+                break;
+            }
+            ViewBag.ProfileId = profile.ProfileId;
+
             return View();
         }
 

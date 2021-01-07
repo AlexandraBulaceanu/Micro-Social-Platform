@@ -14,10 +14,16 @@
         <h1>@ViewBag.Message</h1>
         <h2>These is my profil</h2>
 
-        <a class="btn btn-primary" href="/Posts/New">New post</a>
+        <a class="btn btn-primary" href="/Posts/New/@ViewBag.ProfileId">New post</a>
         <br />
+        <div class="row">
+            @foreach (Reaction.Models.Post post in ViewBag.Posts)
+            {
+                if (post.UserId == ViewBag.UserId)
+                {@Html.Partial("PostInfo", post)}
+        }
+        </div>
 
-        
 
     </div>
 </body>

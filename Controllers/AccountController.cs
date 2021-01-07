@@ -18,6 +18,8 @@ namespace Reaction.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        private Reaction.Models.ApplicationDbContext db = new Reaction.Models.ApplicationDbContext();
+
         public AccountController()
         {
         }

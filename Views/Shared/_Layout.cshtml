@@ -33,7 +33,7 @@
                     <li>@Html.ActionLink("Requests", "FriendRequest", "Friends")</li>
                     <li>@Html.ActionLink("Friends", "ShowFriends", "Friends")</li>
                     <li>@Html.ActionLink("Groups", "Index", "Groups")</li>
-                    <li>@Html.ActionLink("Profile", "Index", "Profiles")</li>
+                    <li><a href="/Profiles/Show/@ViewBag.ProfileId">Profile</a> </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

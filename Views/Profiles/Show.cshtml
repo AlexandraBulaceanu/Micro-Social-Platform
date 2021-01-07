@@ -20,7 +20,7 @@
             <button type="submit">Send Friend Request</button>
         </form> }
 
-        @foreach (var post in Model.Posts)
+        @foreach (Reaction.Models.Post post in Model.Posts)
         {
             <h1>Prost</h1>
             @Html.Partial("PostInfo", post)
